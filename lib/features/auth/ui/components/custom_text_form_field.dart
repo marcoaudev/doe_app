@@ -25,11 +25,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(fontSize: 12),
       validator: widget.validator,
       onChanged: widget.onChanged,
       inputFormatters: widget.inputFormatters,
       keyboardType: widget.keyboardType,
+      textInputAction: TextInputAction.next,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: InputDecoration(
         fillColor: const Color.fromRGBO(240, 240, 240, 0.898),
         filled: true,

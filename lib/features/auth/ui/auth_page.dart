@@ -1,3 +1,4 @@
+import 'package:doe/features/auth/domain/entity/user_entity.dart';
 import 'package:doe/features/auth/ui/components/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -9,25 +10,35 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  
+  
+  final user = UserEntity.empty();
+
   @override
   Widget build(BuildContext context) {
+
+    final screenSize = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 4,
-            child: SizedBox(
-              height: 150,
-              width: 150,
-              child: Image.asset("assets/icon_app.png"),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: screenSize * 0.1),
+              child: Center(
+                child: Image.asset(
+                  "assets/icon_app.png",
+                  width: 150,
+                  height: 150,
+                ),
+              ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
+            Container(
+              height: screenSize * 0.2,
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.07),
+                horizontal: MediaQuery.of(context).size.width * 0.07,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -78,62 +89,65 @@ class _AuthPageState extends State<AuthPage> {
                 ],
               ),
             ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: Center(
-              child: Text("Or with email"),
+            SizedBox(
+              height: screenSize * 0.05,
+              child: const Text("Or with email"),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
+            Container(
+              height: screenSize * 0.1,
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.07,
               ),
-              child: const CustomTextFormField(
+              child: CustomTextFormField(
+                keyboardType: TextInputType.emailAddress,
+                validator: (p0) => user.email.validate(),
+                onChanged: user.setEmail,
                 hintText: "Your email",
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
+            Container(
+              height: screenSize * 0.1,
               padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.07,
               ),
-              child: const CustomTextFormField(
+              child: CustomTextFormField(
+                validator: (p0) => user.password.validate(),
+                onChanged: user.setPassword,
+                keyboardType: TextInputType.visiblePassword,
                 hintText: "Your password",
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: SizedBox(
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: const Center(
-                child: Text(
-                  "Sing In",
-                  style: TextStyle(color: Colors.white),
+            ElevatedButton(
+              onPressed: () {
+                print(user.email.toString());
+                print( user.password.toString());
+              },
+              child: SizedBox(
+                height: 50,
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: const Center(
+                  child: Text(
+                    "Sing In",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("New User? "),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text("Sing up"),
-                )
-              ],
-            ),
-          )
-        ],
+            SizedBox(
+              height: screenSize * 0.2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("New User? "),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Sing up"),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
