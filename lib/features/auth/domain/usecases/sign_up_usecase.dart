@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:doe/core/errors/failure.dart';
+import 'package:doe/core/errors/failures.dart';
 import 'package:doe/core/usecase/usecase.dart';
 import 'package:doe/features/auth/domain/entity/user_entity.dart';
 import 'package:doe/features/auth/domain/repository/auth_repository.dart';

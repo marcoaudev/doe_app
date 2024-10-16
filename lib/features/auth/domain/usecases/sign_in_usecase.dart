@@ -1,21 +1,21 @@
 import 'package:dartz/dartz.dart';
-import 'package:doe/core/errors/failure.dart';
+import 'package:doe/core/errors/failures.dart';
 import 'package:doe/core/usecase/usecase.dart';
 import 'package:doe/features/auth/domain/entity/user_entity.dart';
 import 'package:doe/features/auth/domain/repository/auth_repository.dart';
 import 'package:doe/features/auth/domain/vos/email.dart';
 import 'package:doe/features/auth/domain/vos/password.dart';
 
-class SingInUsecase implements Usecase<UserEntity, SignInParams> {
+class SignInUsecase implements Usecase<UserEntity, Map> {
   final IAuthRepository repository;
 
-  SingInUsecase(this.repository);
+  SignInUsecase(this.repository);
 
   @override
-  Future<Either<Failure, UserEntity>> call(SignInParams params) async{
+  Future<Either<Failure, UserEntity>> call(Map params) async{
     return await repository.signIn(
-      email: params.email.toString(),
-      password: params.password.toString(),
+      email: params['email'],
+      password: params['password'],
     );
   }
 }

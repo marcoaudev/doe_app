@@ -4,12 +4,18 @@ import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
 class UserEntity extends Equatable {
+  final String id;
+  final String name;
+  final String photoURL;
   Email _email;
   Password _password;
 
   UserEntity({
+    required this.id,
     required String email,
     required String password,
+    required this.name,
+    required this.photoURL,
   })  : _email = Email(value: email),
         _password = Password(value: password);
 
@@ -24,8 +30,11 @@ class UserEntity extends Equatable {
 
   factory UserEntity.empty() {
     return UserEntity(
+      id: '',
       email: '',
       password: '',
+      name: '',
+      photoURL: '',
     );
   }
 }
